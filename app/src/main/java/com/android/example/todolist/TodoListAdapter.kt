@@ -5,10 +5,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import java.text.DateFormat
 
 class TodoListAdapter(
-    private val todoList: MutableList<Todo>)
+    private val todoList: MutableList<Todo>
+)
     : RecyclerView.Adapter<TodoListAdapter.ViewHolder>(){
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

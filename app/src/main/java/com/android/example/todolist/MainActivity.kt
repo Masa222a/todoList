@@ -11,7 +11,7 @@ import com.android.example.todolist.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     lateinit var adapter: TodoListAdapter
-    lateinit var todoList: MutableList<Todo>
+    var todoList = mutableListOf<Todo>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,14 +20,9 @@ class MainActivity : AppCompatActivity() {
 
         val view = binding.root
 
-        val list1 = Todo("テストタイトル1", "2022/07/21")
-        val list2 = Todo("テストタイトル2", "2022/07/22")
-        val list3 = Todo("テストタイトル3", "2022/07/23")
-        val list4 = Todo("テストタイトル4", "2022/07/24")
-        todoList = mutableListOf(list1, list2,list3,list4)
-
         val recyclerView = binding.recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(view.context)
+        val layoutManager = LinearLayoutManager(recyclerView.context)
+        recyclerView.layoutManager = layoutManager
         adapter = TodoListAdapter(todoList)
         recyclerView.adapter = adapter
 
@@ -52,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         val title = pref.getString("title", "")
         val date = pref.getString("date", "")
         if (title != null && date != null) {
-            var todo = Todo(title, date)
+            val todo = Todo(title, date)
             todoList.add(todo)
             Log.d("todoMainActivity", "${todo}")
         }

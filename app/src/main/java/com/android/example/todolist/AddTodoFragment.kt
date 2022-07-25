@@ -2,13 +2,13 @@ package com.android.example.todolist
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.edit
-import androidx.preference.PreferenceManager
+import androidx.fragment.app.Fragment
 import com.android.example.todolist.databinding.FragmentAddTodoBinding
 
 class AddTodoFragment : Fragment() {
@@ -32,6 +32,7 @@ class AddTodoFragment : Fragment() {
                     putString("title", binding.editTitle.text.toString())
                     putString("date", binding.editDate.text.toString())
                     apply()
+                    Log.d("pref", "${pref}")
                 }
                 binding.editTitle.text.clear()
                 binding.editDate.text.clear()
