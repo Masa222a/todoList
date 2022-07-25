@@ -5,6 +5,8 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.edit
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.example.todolist.databinding.ActivityMainBinding
 
@@ -20,6 +22,10 @@ class MainActivity : AppCompatActivity() {
 
         val view = binding.root
 
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        pref.edit{
+            clear()
+        }
         val recyclerView = binding.recyclerView
         val layoutManager = LinearLayoutManager(recyclerView.context)
         recyclerView.layoutManager = layoutManager
@@ -44,12 +50,13 @@ class MainActivity : AppCompatActivity() {
 
     fun getTodo() {
         val pref = getSharedPreferences("pref", Context.MODE_PRIVATE)
-        val title = pref.getString("title", "")
-        val date = pref.getString("date", "")
+        val title = pref.getString("title", null)
+        val date = pref.getString("date", null)
         if (title != null && date != null) {
             val todo = Todo(title, date)
             todoList.add(todo)
             Log.d("todoMainActivity", "${todo}")
         }
+        pref.edit { clear() }
     }
 }
