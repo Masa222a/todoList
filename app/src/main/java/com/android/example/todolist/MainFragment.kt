@@ -50,27 +50,24 @@ class MainFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     override fun onResume() {
         super.onResume()
-//        try {
-            val pref = requireActivity().getSharedPreferences("pref", Context.MODE_PRIVATE)
-            val gson = Gson()
-            val json = pref.getString("todoLists", null)
-            val listType = object : TypeToken<ArrayList<Todo>>() {}.type
-            val todoData = gson.fromJson<ArrayList<Todo>>(json, listType) as? Todo
-        Log.d("todoLists", "${todoData}")
-//        } catch (e: NullPointerException) {
-//            println(e)
-//        }
-
+        getTodoLists()
         adapter.notifyDataSetChanged()
     }
 
-//    fun loadTodo(key: String) {
-//        val pref = requireActivity().getSharedPreferences("pref", Context.MODE_PRIVATE)
-//        val jsonArray = JSONArray(pref.getString(key, "[]"));
-//
-//        for (i in 0 until jsonArray.length()) {
-//            Log.i("loadArrayList", "[$i] -> " + jsonArray.get(i))
-//        }
-//    }
+    fun getTodoLists() {
+        val pref = requireActivity().getSharedPreferences("pref", Context.MODE_PRIVATE)
+        val gson = Gson()
+        val json = pref.getString("todoLists", null)
+        val listType = object : TypeToken<ArrayList<Todo>>() {}.type
+        val todoData = gson.fromJson<ArrayList<Todo>>(json, listType)
+        Log.d("todoLists", "${todoData}")
+        for (i in todoData) {
+            if (todoList.contains(i)) {
+                Log.d("todoLists", "すでに含まれています。")
+            } else {
+                todoList.add(i)
+            }
+        }
+    }
 
 }
